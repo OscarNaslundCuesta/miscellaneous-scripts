@@ -1,0 +1,15 @@
+import base64
+
+encstring = "eWDPeG1uYyzINTojIDHAcmVzID8=" #encrypted string
+key = base64.b64decode("AkKsFwAD")
+
+def rolling_xor(data, key):
+        encrypted = b''
+        for i, c in enumerate(data):
+            encrypted += bytes((c ^ key[i % len(key)],))
+
+        return encrypted
+
+data = base64.b64decode(encstring)
+decstring = rolling_xor(data, key).decode()
+print(decstring) #decrypted string
